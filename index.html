@@ -119,13 +119,18 @@ button:hover {
         data.append("kelas", document.getElementById("kelas").value);
         data.append("file", document.getElementById("file").files[0]);
 
-        const res = await fetch("http://localhost:3000/upload", {
-          method: "POST",
-          body: data,
-        });
+        const res = await fetch("/upload", {
+  method: "POST",
+  body: data,
+});
 
-        const result = await res.json();
-        hasil.innerText = result.message;
+if (!res.ok) {
+  hasil.innerText = "Gagal upload!";
+  return;
+}
+
+const result = await res.json();
+hasil.innerText = result.message;
       });
     </script>
   </body>
